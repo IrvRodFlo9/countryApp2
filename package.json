@@ -3,10 +3,18 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start": "ng serve -o",
+    "build:href": "ng build --base-href ./",
+    "install:devs": "npm i -D rimraf copyfiles",
+    "make:docs": "mkdir docs",
+    "delete:docs": "rimraf docs",
+    "copy:dist-3rd": "copyfiles dist/country-app/* ./docs -f",
+    "copy:dist-browser": "copyfiles dist/country-app/browser/* ./docs -f",
+    "copy:dist": "npm run copy:dist-3rd && npm run copy:dist-browser",
+    "build:all": "npm run delete:docs && npm run build:href && npm run make:docs && npm run copy:dist"
   },
   "private": true,
   "dependencies": {
@@ -27,12 +35,14 @@
     "@angular/cli": "^17.0.3",
     "@angular/compiler-cli": "^17.0.0",
     "@types/jasmine": "~5.1.0",
+    "copyfiles": "^2.4.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "rimraf": "^5.0.5",
     "typescript": "~5.2.2"
   }
 }
